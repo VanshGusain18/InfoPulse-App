@@ -8,7 +8,11 @@ export class News extends Component {
         this is a news Component.
         <div className="row">
           <div className="col-md-3">
-            <Newsitem tittle="tittle" description="desc" />
+            <Newsitem
+              tittle="tittle"
+              description="desc"
+              imgUrl="https://ichef.bbci.co.uk/news/1024/branded_news/E52A/production/_133166685_gettyimages-2147846193.jpg"
+            />
           </div>
           <div className="col-md-3">
             <Newsitem tittle="tittle" description="desc" />
