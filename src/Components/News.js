@@ -267,6 +267,14 @@ export class News extends Component {
             );
           })}
         </div>
+        <div className="container d-flex justify-content-between">
+          <button type="button" class="btn btn-dark">
+            previous
+          </button>
+          <button type="button" class="btn btn-dark">
+            next
+          </button>
+        </div>
       </div>
     );
   }
