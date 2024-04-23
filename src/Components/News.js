@@ -7,24 +7,39 @@ export class News extends Component {
     this.state = {
       articles: [],
       loading: false,
+      page: 1,
     };
   }
 
   async componentDidMount() {
-    let URL =
-      "https://newsapi.org/v2/everything?q=apple&from=2024-04-20&to=2024-04-20&sortBy=popularity&apiKey=b413b0db42c640379dbd0140109c87ef";
+    let URL = `https://newsapi.org/v2/everything?q=apple&from=2024-04-20&to=2024-04-20&sortBy=popularity&apiKey=b413b0db42c640379dbd0140109c87ef&page=${this.state.page}&pageSize=20`;
     let data = await fetch(URL);
     let oData = await data.json();
-    console.log(oData);
-    this.setState({ articles: oData.articles });
+    this.setState({
+      articles: oData.articles,
+    });
   }
 
-  handleprev = () => {
-    console.log("prev");
+  handleprev = async () => {
+    let URL = `https://newsapi.org/v2/everything?q=apple&from=2024-04-20&to=2024-04-20&sortBy=popularity&apiKey=b413b0db42c640379dbd0140109c87ef&page=${this.state.page}&pageSize=20`;
+    console.log(this.state.page);
+    let data = await fetch(URL);
+    let oData = await data.json();
+    this.setState({
+      articles: oData.articles,
+      page: this.state.page - 1,
+    });
   };
 
-  handlenex = () => {
-    console.log("next");
+  handlenex = async () => {
+    let URL = `https://newsapi.org/v2/everything?q=apple&from=2024-04-20&to=2024-04-20&sortBy=popularity&apiKey=b413b0db42c640379dbd0140109c87ef&page=${this.state.page}&pageSize=20`;
+    console.log(this.state.page);
+    let data = await fetch(URL);
+    let oData = await data.json();
+    this.setState({
+      articles: oData.articles,
+      page: this.state.page + 1,
+    });
   };
 
   render() {
@@ -52,10 +67,19 @@ export class News extends Component {
           })}
         </div>
         <div className="container d-flex justify-content-between">
-          <button type="button" class="btn btn-dark">
+          <button
+            disabled={this.state.page <= 1}
+            type="button"
+            className="btn btn-dark"
+            onClick={this.handleprev}
+          >
             &larr; previous
           </button>
-          <button type="button" class="btn btn-dark">
+          <button
+            type="button"
+            className="btn btn-dark"
+            onClick={this.handlenex}
+          >
             next &rarr;
           </button>
         </div>
