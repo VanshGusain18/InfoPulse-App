@@ -21,7 +21,9 @@ export class News extends Component {
   }
 
   handleprev = async () => {
-    let URL = `https://newsapi.org/v2/everything?q=apple&from=2024-04-20&to=2024-04-20&sortBy=popularity&apiKey=b413b0db42c640379dbd0140109c87ef&page=${this.state.page}&pageSize=20`;
+    let URL = `https://newsapi.org/v2/everything?q=apple&from=2024-04-20&to=2024-04-20&sortBy=popularity&apiKey=b413b0db42c640379dbd0140109c87ef&page=${
+      this.state.page - 1
+    }&pageSize=20`;
     console.log(this.state.page);
     let data = await fetch(URL);
     let oData = await data.json();
@@ -32,7 +34,9 @@ export class News extends Component {
   };
 
   handlenex = async () => {
-    let URL = `https://newsapi.org/v2/everything?q=apple&from=2024-04-20&to=2024-04-20&sortBy=popularity&apiKey=b413b0db42c640379dbd0140109c87ef&page=${this.state.page}&pageSize=20`;
+    let URL = `https://newsapi.org/v2/everything?q=apple&from=2024-04-20&to=2024-04-20&sortBy=popularity&apiKey=b413b0db42c640379dbd0140109c87ef&page=${
+      this.state.page + 1
+    }&pageSize=20`;
     console.log(this.state.page);
     let data = await fetch(URL);
     let oData = await data.json();
