@@ -12,37 +12,51 @@ export class News extends Component {
   }
 
   async componentDidMount() {
-    let URL = `https://newsapi.org/v2/everything?q=apple&from=2024-04-20&to=2024-04-20&sortBy=popularity&apiKey=b413b0db42c640379dbd0140109c87ef&page=${this.state.page}&pageSize=20`;
+    let URL = `https://newsapi.org/v2/everything?q=apple&from=2024-04-20&to=2024-04-20&sortBy=popularity&apiKey=b413b0db42c640379dbd0140109c87ef&page=1&pageSize=32`;
     let data = await fetch(URL);
     let oData = await data.json();
     this.setState({
       articles: oData.articles,
+      totalResults: 100,
     });
   }
 
   handleprev = async () => {
-    let URL = `https://newsapi.org/v2/everything?q=apple&from=2024-04-20&to=2024-04-20&sortBy=popularity&apiKey=b413b0db42c640379dbd0140109c87ef&page=${
-      this.state.page - 1
-    }&pageSize=20`;
-    console.log(this.state.page);
-    let data = await fetch(URL);
-    let oData = await data.json();
-    this.setState({
-      articles: oData.articles,
-      page: this.state.page - 1,
+    console.log("prev");
+    this.setState((prevState) => {
+      if (prevState.page > 1) {
+        let URL = `https://newsapi.org/v2/everything?q=apple&from=2024-04-20&to=2024-04-20&sortBy=popularity&apiKey=b413b0db42c640379dbd0140109c87ef&page=${
+          prevState.page - 1
+        }&pageSize=32`;
+        fetch(URL)
+          .then((data) => data.json())
+          .then((oData) => {
+            this.setState({
+              page: prevState.page - 1,
+              articles: oData.articles,
+            });
+            console.log(this.state.page);
+          });
+      }
     });
   };
 
   handlenex = async () => {
-    let URL = `https://newsapi.org/v2/everything?q=apple&from=2024-04-20&to=2024-04-20&sortBy=popularity&apiKey=b413b0db42c640379dbd0140109c87ef&page=${
-      this.state.page + 1
-    }&pageSize=20`;
-    console.log(this.state.page);
-    let data = await fetch(URL);
-    let oData = await data.json();
-    this.setState({
-      articles: oData.articles,
-      page: this.state.page + 1,
+    console.log("nex");
+    this.setState((prevState) => {
+      let URL = `https://newsapi.org/v2/everything?q=apple&from=2024-04-20&to=2024-04-20&sortBy=popularity&apiKey=b413b0db42c640379dbd0140109c87ef&page=${
+        prevState.page + 1
+      }&pageSize=32`;
+      fetch(URL)
+        .then((data) => data.json())
+        .then((oData) => {
+          this.setState({
+            page: prevState.page + 1,
+            articles: oData.articles,
+          });
+          console.log(this.state.page);
+          console.log(Math.ceil(this.state.totalResults / 32));
+        });
     });
   };
 
@@ -80,6 +94,9 @@ export class News extends Component {
             &larr; previous
           </button>
           <button
+            disabled={
+              this.state.page + 1 >= Math.ceil(this.state.totalResults / 32)
+            }
             type="button"
             className="btn btn-dark"
             onClick={this.handlenex}
