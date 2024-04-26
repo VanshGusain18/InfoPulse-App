@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Newsitem from "./Newsitem";
+import Spinner from "./Spinner";
 
 export class News extends Component {
   constructor() {
@@ -8,11 +9,12 @@ export class News extends Component {
       articles: [],
       loading: false,
       page: 1,
+      pageSize: 12,
     };
   }
 
   async componentDidMount() {
-    let URL = `https://newsapi.org/v2/everything?q=apple&from=2024-04-20&to=2024-04-20&sortBy=popularity&apiKey=b413b0db42c640379dbd0140109c87ef&page=1&pageSize=32`;
+    let URL = `https://newsapi.org/v2/everything?q=apple&from=2024-04-20&to=2024-04-20&sortBy=popularity&apiKey=b413b0db42c640379dbd0140109c87ef&page=1&pageSize=${this.state.pageSize}`;
     let data = await fetch(URL);
     let oData = await data.json();
     this.setState({
@@ -27,8 +29,9 @@ export class News extends Component {
       if (prevState.page > 1) {
         let URL = `https://newsapi.org/v2/everything?q=apple&from=2024-04-20&to=2024-04-20&sortBy=popularity&apiKey=b413b0db42c640379dbd0140109c87ef&page=${
           prevState.page - 1
-        }&pageSize=32`;
+        }&pageSize=${this.state.pageSize}`;
         fetch(URL)
+          // this.setState({loading: ture})
           .then((data) => data.json())
           .then((oData) => {
             this.setState({
@@ -46,7 +49,7 @@ export class News extends Component {
     this.setState((prevState) => {
       let URL = `https://newsapi.org/v2/everything?q=apple&from=2024-04-20&to=2024-04-20&sortBy=popularity&apiKey=b413b0db42c640379dbd0140109c87ef&page=${
         prevState.page + 1
-      }&pageSize=32`;
+      }&pageSize=${this.state.pageSize}`;
       fetch(URL)
         .then((data) => data.json())
         .then((oData) => {
@@ -63,7 +66,10 @@ export class News extends Component {
   render() {
     return (
       <div className="container mt-2">
-        <h2>InfoPulse: Top Headlines</h2>
+        <div className="text-center mt-2">
+          <h2>InfoPulse: Top Headlines</h2>
+          <Spinner />
+        </div>
         <div className="row">
           {this.state.articles.map((ele) => {
             return (
@@ -95,7 +101,8 @@ export class News extends Component {
           </button>
           <button
             disabled={
-              this.state.page + 1 >= Math.ceil(this.state.totalResults / 32)
+              this.state.page + 1 >=
+              Math.ceil(this.state.totalResults / this.state.pageSize)
             }
             type="button"
             className="btn btn-dark"
