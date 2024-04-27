@@ -24,21 +24,24 @@ export class News extends Component {
   }
 
   handleprev = async () => {
-    console.log("prev");
     this.setState((prevState) => {
       if (prevState.page > 1) {
         let URL = `https://newsapi.org/v2/everything?q=apple&from=2024-04-20&to=2024-04-20&sortBy=popularity&apiKey=b413b0db42c640379dbd0140109c87ef&page=${
           prevState.page - 1
         }&pageSize=${this.state.pageSize}`;
+        this.setState({ loading: true });
         fetch(URL)
-          // this.setState({loading: ture})
           .then((data) => data.json())
           .then((oData) => {
             this.setState({
               page: prevState.page - 1,
               articles: oData.articles,
+              loading: false,
             });
-            console.log(this.state.page);
+          })
+          .catch((error) => {
+            console.error("Error:", error);
+            this.setState({ loading: false });
           });
       }
     });
@@ -50,15 +53,19 @@ export class News extends Component {
       let URL = `https://newsapi.org/v2/everything?q=apple&from=2024-04-20&to=2024-04-20&sortBy=popularity&apiKey=b413b0db42c640379dbd0140109c87ef&page=${
         prevState.page + 1
       }&pageSize=${this.state.pageSize}`;
+      this.setState({ loading: true });
       fetch(URL)
         .then((data) => data.json())
         .then((oData) => {
           this.setState({
             page: prevState.page + 1,
             articles: oData.articles,
+            loading: false,
           });
-          console.log(this.state.page);
-          console.log(Math.ceil(this.state.totalResults / 32));
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+          this.setState({ loading: false });
         });
     });
   };
@@ -68,24 +75,26 @@ export class News extends Component {
       <div className="container mt-2">
         <div className="text-center mt-2">
           <h2>InfoPulse: Top Headlines</h2>
-          <Spinner />
+          {this.state.loading && this.state.loading && <Spinner />}
         </div>
         <div className="row">
           {this.state.articles.map((ele) => {
             return (
               <div className="col-md-3" key={ele.url}>
-                <Newsitem
-                  tittle={ele.title ? ele.title.slice(0, 45) : ""}
-                  description={
-                    ele.description ? ele.description.slice(0, 88) : ""
-                  }
-                  imgUrl={
-                    ele.urlToImage
-                      ? ele.urlToImage
-                      : "https://img.freepik.com/premium-vector/no-result-found-empty-results-popup-design_586724-96.jpg?w=1060"
-                  }
-                  url={ele.url}
-                />
+                {!this.state.loading && (
+                  <Newsitem
+                    tittle={ele.title ? ele.title.slice(0, 45) : ""}
+                    description={
+                      ele.description ? ele.description.slice(0, 88) : ""
+                    }
+                    imgUrl={
+                      ele.urlToImage
+                        ? ele.urlToImage
+                        : "https://img.freepik.com/premium-vector/no-result-found-empty-results-popup-design_586724-96.jpg?w=1060"
+                    }
+                    url={ele.url}
+                  />
+                )}
               </div>
             );
           })}
