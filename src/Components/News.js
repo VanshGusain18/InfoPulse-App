@@ -4,18 +4,28 @@ import Spinner from "./Spinner";
 import PropTypes from "prop-types";
 
 export class News extends Component {
+  static defaultProps = {
+    country: "in",
+    pageSize: 12,
+    category: "general",
+  };
+
+  static propTypes = {
+    country: PropTypes.string,
+    pageSize: PropTypes.number,
+  };
+
   constructor() {
     super();
     this.state = {
       articles: [],
       loading: false,
       page: 1,
-      pageSize: 12,
     };
   }
 
   async componentDidMount() {
-    let URL = `https://newsapi.org/v2/top-headlines?country=us&apiKey=b413b0db42c640379dbd0140109c87ef&page=1&pageSize=${this.state.pageSize}`;
+    let URL = `https://newsapi.org/v2/top-headlines?country=us&apiKey=b413b0db42c640379dbd0140109c87ef&page=1&category=${this.props.category}&pageSize=${this.props.pageSize}`;
     let data = await fetch(URL);
     let oData = await data.json();
     this.setState({
@@ -29,7 +39,7 @@ export class News extends Component {
       if (prevState.page > 1) {
         let URL = `https://newsapi.org/v2/top-headlines?country=us&apiKey=b413b0db42c640379dbd0140109c87ef&page=${
           prevState.page - 1
-        }&pageSize=${this.state.pageSize}`;
+        }&pageSize=${this.props.pageSize}`;
         this.setState({ loading: true });
         fetch(URL)
           .then((data) => data.json())
@@ -53,7 +63,7 @@ export class News extends Component {
     this.setState((prevState) => {
       let URL = `https://newsapi.org/v2/top-headlines?country=us&apiKey=b413b0db42c640379dbd0140109c87ef&page=${
         prevState.page + 1
-      }&pageSize=${this.state.pageSize}`;
+      }&pageSize=${this.props.pageSize}`;
       this.setState({ loading: true });
       fetch(URL)
         .then((data) => data.json())
@@ -112,7 +122,7 @@ export class News extends Component {
           <button
             disabled={
               this.state.page + 1 >=
-              Math.ceil(this.state.totalResults / this.state.pageSize)
+              Math.ceil(this.state.totalResults / this.props.pageSize)
             }
             type="button"
             className="btn btn-dark"
