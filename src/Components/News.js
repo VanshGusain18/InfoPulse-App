@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Newsitem from "./Newsitem";
 import Spinner from "./Spinner";
+import PropTypes from "prop-types";
 
 export class News extends Component {
   constructor() {
@@ -14,19 +15,19 @@ export class News extends Component {
   }
 
   async componentDidMount() {
-    let URL = `https://newsapi.org/v2/everything?q=apple&from=2024-04-20&to=2024-04-20&sortBy=popularity&apiKey=b413b0db42c640379dbd0140109c87ef&page=1&pageSize=${this.state.pageSize}`;
+    let URL = `https://newsapi.org/v2/top-headlines?country=us&apiKey=b413b0db42c640379dbd0140109c87ef&page=1&pageSize=${this.state.pageSize}`;
     let data = await fetch(URL);
     let oData = await data.json();
     this.setState({
       articles: oData.articles,
-      totalResults: 100,
+      totalResults: oData.totalResults,
     });
   }
 
   handleprev = async () => {
     this.setState((prevState) => {
       if (prevState.page > 1) {
-        let URL = `https://newsapi.org/v2/everything?q=apple&from=2024-04-20&to=2024-04-20&sortBy=popularity&apiKey=b413b0db42c640379dbd0140109c87ef&page=${
+        let URL = `https://newsapi.org/v2/top-headlines?country=us&apiKey=b413b0db42c640379dbd0140109c87ef&page=${
           prevState.page - 1
         }&pageSize=${this.state.pageSize}`;
         this.setState({ loading: true });
@@ -50,7 +51,7 @@ export class News extends Component {
   handlenex = async () => {
     console.log("nex");
     this.setState((prevState) => {
-      let URL = `https://newsapi.org/v2/everything?q=apple&from=2024-04-20&to=2024-04-20&sortBy=popularity&apiKey=b413b0db42c640379dbd0140109c87ef&page=${
+      let URL = `https://newsapi.org/v2/top-headlines?country=us&apiKey=b413b0db42c640379dbd0140109c87ef&page=${
         prevState.page + 1
       }&pageSize=${this.state.pageSize}`;
       this.setState({ loading: true });

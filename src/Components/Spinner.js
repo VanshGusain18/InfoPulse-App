@@ -8,7 +8,7 @@ export class Spinner extends Component {
           src="https://media.tenor.com/wpSo-8CrXqUAAAAi/loading-loading-forever.gif"
           alt="Loading"
           style={{
-            width: "40%",
+            width: "5%",
           }}
         />
       </div>
