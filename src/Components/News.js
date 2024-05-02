@@ -51,6 +51,7 @@ export class News extends Component {
               page: prevState.page - 1,
               articles: oData.articles,
               loading: false,
+              totalResults: oData.totalResults,
             });
           })
           .catch((error) => {
@@ -62,22 +63,22 @@ export class News extends Component {
   };
 
   handlenex = async () => {
-    console.log("nex");
     this.setState((prevState) => {
       let URL = `https://newsapi.org/v2/top-headlines?country=${
         this.props.country
-      }apiKey=b413b0db42c640379dbd0140109c87ef&category=${
+      }&apiKey=b413b0db42c640379dbd0140109c87ef&category=${
         this.props.category
       }&page=${prevState.page + 1}&pageSize=${this.props.pageSize}`;
       this.setState({ loading: true });
       fetch(URL)
         .then((data) => data.json())
         .then((oData) => {
-          this.setState({
+          this.setState((prevState) => ({
             page: prevState.page + 1,
             articles: oData.articles,
+            totalResults: oData.totalResults,
             loading: false,
-          });
+          }));
         })
         .catch((error) => {
           console.error("Error:", error);
