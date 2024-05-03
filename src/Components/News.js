@@ -110,6 +110,7 @@ export class News extends Component {
                         : "https://img.freepik.com/premium-vector/no-result-found-empty-results-popup-design_586724-96.jpg?w=1060"
                     }
                     url={ele.url}
+                    source={ele.source.name}
                     author={
                       ele.author !== null && ele.author !== undefined
                         ? ele.author

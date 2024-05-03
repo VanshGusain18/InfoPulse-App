@@ -2,7 +2,7 @@ import React, { Component } from "react";
 
 export class Newsitem extends Component {
   render() {
-    let { tittle, description, imgUrl, url, time, author } = this.props;
+    let { tittle, description, imgUrl, url, time, author, source } = this.props;
     return (
       <div className="my-2">
         <div className="card" style={{}}>
@@ -23,6 +23,12 @@ export class Newsitem extends Component {
             <a href={url} className="btn btn-primary btn-sm">
               Read More
             </a>
+            <span
+              className="position-absolute top-0  translate-middle badge rounded-pill bg-danger"
+              style={{ left: "50%" }}
+            >
+              {source}
+            </span>
           </div>
         </div>
       </div>
