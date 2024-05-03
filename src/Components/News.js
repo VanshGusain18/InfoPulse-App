@@ -6,13 +6,13 @@ import PropTypes from "prop-types";
 export class News extends Component {
   static defaultProps = {
     country: "in",
-    pageSize: 12,
+    pageSize: "12",
     category: "general",
   };
 
   static propTypes = {
     country: PropTypes.string,
-    pageSize: PropTypes.number,
+    pageSize: PropTypes.string,
     category: PropTypes.string,
   };
 
@@ -110,6 +110,12 @@ export class News extends Component {
                         : "https://img.freepik.com/premium-vector/no-result-found-empty-results-popup-design_586724-96.jpg?w=1060"
                     }
                     url={ele.url}
+                    author={
+                      ele.author !== null && ele.author !== undefined
+                        ? ele.author
+                        : "unknown"
+                    }
+                    time={new Date(ele.publishedAt).toGMTString()}
                   />
                 )}
               </div>
