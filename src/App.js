@@ -3,6 +3,7 @@ import Navbar from "./Components/Navbar";
 import News from "./Components/News";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 export default class App extends Component {
+  pageSize = 12;
   render() {
     return (
       <div>
@@ -14,7 +15,7 @@ export default class App extends Component {
                 key="general"
                 country="in"
                 category="general"
-                pageSize="12"
+                pageSize={this.pageSize}
               />
             </Route>
             <Route exact path="/general">
@@ -22,7 +23,7 @@ export default class App extends Component {
                 key="general"
                 country="in"
                 category="general"
-                pageSize="12"
+                pageSize={this.pageSize}
               />
             </Route>
             <Route exact path="/business">
@@ -30,7 +31,7 @@ export default class App extends Component {
                 key="business"
                 country="in"
                 category="business"
-                pageSize="12"
+                pageSize={this.pageSize}
               />
             </Route>
             <Route exact path="/entertainment">
@@ -38,29 +39,39 @@ export default class App extends Component {
                 key="entertainment"
                 country="in"
                 category="entertainment"
-                pageSize="12"
+                pageSize={this.pageSize}
               />
             </Route>
             <Route exact path="/health">
-              <News key="health" country="in" category="health" pageSize="12" />
+              <News
+                key="health"
+                country="in"
+                category="health"
+                pageSize={this.pageSize}
+              />
             </Route>
             <Route exact path="/science">
               <News
                 key="science"
                 country="in"
                 category="science"
-                pageSize="12"
+                pageSize={this.pageSize}
               />
             </Route>
             <Route exact path="/sports">
-              <News key="sports" country="in" category="sports" pageSize="12" />
+              <News
+                key="sports"
+                country="in"
+                category="sports"
+                pageSize={this.pageSize}
+              />
             </Route>
             <Route exact path="/technology">
               <News
                 key="technology"
                 country="in"
                 category="technology"
-                pageSize="12"
+                pageSize={this.pageSize}
               />
             </Route>
           </Switch>
