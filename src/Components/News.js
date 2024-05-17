@@ -46,28 +46,6 @@ export class News extends Component {
     this.updateNews();
   }
 
-  // handleprev = () => {
-  //   this.setState(
-  //     (prevState) => ({
-  //       page: prevState.page - 1,
-  //     }),
-  //     () => {
-  //       this.updateNews();
-  //     }
-  //   );
-  // };
-
-  // handlenex = () => {
-  //   this.setState(
-  //     (prevState) => ({
-  //       page: prevState.page + 1,
-  //     }),
-  //     () => {
-  //       this.updateNews();
-  //     }
-  //   );
-  // };
-
   fetchMoreData = async () => {
     this.setState(
       (prevState) => ({
@@ -134,28 +112,6 @@ export class News extends Component {
             </div>
           </div>
         </InfiniteScroll>
-
-        {/* <div className="container d-flex justify-content-between">
-          <button
-            disabled={this.state.page <= 1}
-            type="button"
-            className="btn btn-dark"
-            onClick={this.handleprev}
-          >
-            &larr; previous
-          </button>
-          <button
-            disabled={
-              this.state.page + 1 >=
-              Math.ceil(this.state.totalResults / this.props.pageSize)
-            }
-            type="button"
-            className="btn btn-dark"
-            onClick={this.handlenex}
-          >
-            next &rarr;
-          </button>
-        </div> */}
       </div>
     );
   }
