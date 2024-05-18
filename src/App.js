@@ -1,3 +1,4 @@
+// App.js
 import React, { Component } from "react";
 import Navbar from "./Components/Navbar";
 import News from "./Components/News";
@@ -5,7 +6,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import LoadingBar from "react-top-loading-bar";
 
 export default class App extends Component {
-  apiKey = "b413b0db42c640379dbd0140109c87ef";
+  apiKey = process.env.REACT_APP_API_KEY;
 
   state = {
     progress: 0,
@@ -35,7 +36,7 @@ export default class App extends Component {
                 key="general"
                 country="in"
                 category="general"
-                pageSize="12"
+                pageSize={12}
               />
             </Route>
             <Route exact path="/general">
@@ -45,7 +46,7 @@ export default class App extends Component {
                 key="general"
                 country="in"
                 category="general"
-                pageSize="12"
+                pageSize={12}
               />
             </Route>
             <Route exact path="/business">
@@ -55,7 +56,7 @@ export default class App extends Component {
                 key="business"
                 country="in"
                 category="business"
-                pageSize="12"
+                pageSize={12}
               />
             </Route>
             <Route exact path="/entertainment">
@@ -65,7 +66,7 @@ export default class App extends Component {
                 key="entertainment"
                 country="in"
                 category="entertainment"
-                pageSize="12"
+                pageSize={12}
               />
             </Route>
             <Route exact path="/health">
@@ -75,7 +76,7 @@ export default class App extends Component {
                 key="health"
                 country="in"
                 category="health"
-                pageSize="12"
+                pageSize={12}
               />
             </Route>
             <Route exact path="/science">
@@ -85,18 +86,17 @@ export default class App extends Component {
                 key="science"
                 country="in"
                 category="science"
-                pageSize="12"
+                pageSize={12}
               />
             </Route>
             <Route exact path="/sports">
-              ``
               <News
                 setProgress={this.setProgress}
                 apiKey={this.apiKey}
                 key="sports"
                 country="in"
                 category="sports"
-                pageSize="12"
+                pageSize={12}
               />
             </Route>
             <Route exact path="/technology">
@@ -106,7 +106,7 @@ export default class App extends Component {
                 key="technology"
                 country="in"
                 category="technology"
-                pageSize="12"
+                pageSize={12}
               />
             </Route>
           </Switch>
