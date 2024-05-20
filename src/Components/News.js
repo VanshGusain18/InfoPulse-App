@@ -38,8 +38,8 @@ const News = (props) => {
   };
 
   return (
-    <div className="container mt-2">
-      <div className="text-center mt-2">
+    <div className="container">
+      <div className="text-center" style={{ marginTop: "60px" }}>
         <h2>{`InfoPulse: Top ${
           props.category.charAt(0).toUpperCase() + props.category.slice(1)
         } Headlines`}</h2>
